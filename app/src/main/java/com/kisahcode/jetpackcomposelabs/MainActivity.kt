@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -21,8 +23,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kisahcode.jetpackcomposelabs.model.Menu
+import com.kisahcode.jetpackcomposelabs.model.dummyBestSellerMenu
 import com.kisahcode.jetpackcomposelabs.model.dummyCategory
+import com.kisahcode.jetpackcomposelabs.model.dummyMenu
 import com.kisahcode.jetpackcomposelabs.ui.components.CategoryItem
+import com.kisahcode.jetpackcomposelabs.ui.components.MenuItem
 import com.kisahcode.jetpackcomposelabs.ui.components.Search
 import com.kisahcode.jetpackcomposelabs.ui.components.SectionText
 import com.kisahcode.jetpackcomposelabs.ui.theme.JetpackComposeLabsTheme
@@ -47,17 +53,24 @@ class MainActivity : ComponentActivity() {
 /**
  * JetCoffeeApp composable function displays the main content of the application.
  *
- * Currently, it contains a Column with a Banner composable, a SectionText composable, and a
- * CategoryRow composable.
+ * It includes a scrollable Column containing a Banner, sections for categories, favorite menus,
+ * and best seller menus. Each section is labeled with a title and contains a row of items.
  *
  * @param modifier Modifier to be applied to the Column.
  */
 @Composable
 fun JetCoffeeApp(modifier: Modifier = Modifier) {
-    Column {
+    Column(
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+    ) {
         Banner()
         SectionText(stringResource(R.string.section_category))
         CategoryRow()
+        SectionText(stringResource(R.string.section_favorite_menu))
+        MenuRow(dummyMenu)
+        SectionText(stringResource(R.string.section_best_seller_menu))
+        MenuRow(dummyBestSellerMenu)
     }
 }
 
@@ -106,6 +119,32 @@ fun CategoryRow(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * MenuRow composable function displays a row of menu items.
+ *
+ * The row is horizontally scrollable and displays menu items with a specified spacing between them.
+ *
+ * @param listMenu List of Menu items to be displayed in the row.
+ * @param modifier Modifier to be applied to the LazyRow.
+ */
+@Composable
+fun MenuRow(
+    listMenu: List<Menu>,
+    modifier: Modifier = Modifier,
+) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        modifier = modifier,
+    ) {
+        items(
+            listMenu,
+            key = {it.title}
+        ) { menu ->
+            MenuItem(menu)
+        }
+    }
+}
 
 /**
  * BannerPreview provides a preview of the Banner composable.
@@ -132,6 +171,20 @@ fun BannerPreview() {
 fun CategoryRowPreview() {
     JetpackComposeLabsTheme {
         CategoryRow()
+    }
+}
+
+/**
+ * MenuRowPreview provides a preview of the MenuRow composable.
+ *
+ * This preview is useful for seeing how the MenuRow composable looks in different configurations
+ * in Android Studio.
+ */
+@Composable
+@Preview(showBackground = true)
+fun MenuRowPreview() {
+    JetpackComposeLabsTheme {
+        MenuRow(dummyMenu)
     }
 }
 
