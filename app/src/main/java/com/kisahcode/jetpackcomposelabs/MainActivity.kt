@@ -28,6 +28,7 @@ import com.kisahcode.jetpackcomposelabs.model.dummyBestSellerMenu
 import com.kisahcode.jetpackcomposelabs.model.dummyCategory
 import com.kisahcode.jetpackcomposelabs.model.dummyMenu
 import com.kisahcode.jetpackcomposelabs.ui.components.CategoryItem
+import com.kisahcode.jetpackcomposelabs.ui.components.HomeSection
 import com.kisahcode.jetpackcomposelabs.ui.components.MenuItem
 import com.kisahcode.jetpackcomposelabs.ui.components.Search
 import com.kisahcode.jetpackcomposelabs.ui.components.SectionText
@@ -65,12 +66,18 @@ fun JetCoffeeApp(modifier: Modifier = Modifier) {
             .verticalScroll(rememberScrollState())
     ) {
         Banner()
-        SectionText(stringResource(R.string.section_category))
-        CategoryRow()
-        SectionText(stringResource(R.string.section_favorite_menu))
-        MenuRow(dummyMenu)
-        SectionText(stringResource(R.string.section_best_seller_menu))
-        MenuRow(dummyBestSellerMenu)
+        HomeSection(
+            title = stringResource(R.string.section_category),
+            content = { CategoryRow() }
+        )
+        HomeSection(
+            title = stringResource(R.string.menu_favorite),
+            content = { MenuRow(dummyMenu)}
+        )
+        HomeSection(
+            title = stringResource(R.string.section_best_seller_menu),
+            content = { MenuRow(dummyBestSellerMenu)}
+        )
     }
 }
 
