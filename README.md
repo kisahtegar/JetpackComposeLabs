@@ -1,4 +1,4 @@
-# Jetpack Compose Labs
+# JetCoffee
 
 This repository used for learning and testing:
 
