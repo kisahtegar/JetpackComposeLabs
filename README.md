@@ -1,8 +1,8 @@
-# Jetpack Compose Labs
+# Temperature Converter App
 
 This repository used for learning and testing:
 
-| Project Name                 | Jetpack Compose Labs           |
+| Project Name                 | Temperature Converter App      |
 |------------------------------|--------------------------------|
 | Target & Minimum Target SDK  | Phone and Tablet, API level 24 |
 | Activity Type                | Jetpack Compose                | 
