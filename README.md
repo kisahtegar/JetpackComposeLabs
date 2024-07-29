@@ -1,8 +1,8 @@
-# Jetpack Compose Labs
+# MyNavDrawer (Side Effect)
 
 This repository used for learning and testing:
 
-| Project Name                 | Jetpack Compose Labs           |
+| Project Name                 | MyNavDrawer (Side Effect)      |
 |------------------------------|--------------------------------|
 | Target & Minimum Target SDK  | Phone and Tablet, API level 24 |
 | Activity Type                | Jetpack Compose                | 
@@ -15,5 +15,5 @@ This repository used for learning and testing:
 This the output application after running the project:
 
 <p align="center">
-    <img src="previews/preview_1.png" alt="Preview 1" width="0" height="0">
+    <img src="previews/preview_1.png" alt="Preview 1" width="200" height="400">
 </p>
