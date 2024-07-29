@@ -60,11 +60,8 @@ import kotlinx.coroutines.launch
 fun MyNavDrawerApp(
     modifier: Modifier = Modifier
 ) {
-    // State for managing the navigation drawer's open/closed state.
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
-    val snackbarHostState = remember { SnackbarHostState() } // State for showing snackbars.
-    val context = LocalContext.current
+    // Initialize the application state using the rememberMyNavDrawerState composable.
+    val appState = rememberMyNavDrawerState()
 
     // List of menu items for the navigation drawer.
     val items = listOf(
@@ -87,32 +84,22 @@ fun MyNavDrawerApp(
 
     // Handle back press to close the drawer if it's open.
     // for optional we can use.. BackHandler(enabled = drawerState.isOpen){
-    BackPressHandler(enabled = drawerState.isOpen) {
-        scope.launch {
-            drawerState.close()
-        }
+    BackPressHandler(enabled = appState.drawerState.isOpen) {
+        appState.onBackPress()
     }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { SnackbarHost(appState.snackbarHostState) },
         topBar = {
             MyTopBar(
-                onMenuClick = {
-                    scope.launch {
-                        if (drawerState.isClosed) {
-                            drawerState.open()
-                        } else {
-                            drawerState.close()
-                        }
-                    }
-                }
+                onMenuClick = appState::onMenuClick
             )
         },
     ) { paddingValues ->
         ModalNavigationDrawer(
             modifier = Modifier.padding(paddingValues),
-            drawerState = drawerState,
-            gesturesEnabled = drawerState.isOpen,
+            drawerState = appState.drawerState,
+            gesturesEnabled = appState.drawerState.isOpen,
             drawerContent = {
                 ModalDrawerSheet {
                     Spacer(Modifier.height(12.dp))
@@ -122,26 +109,7 @@ fun MyNavDrawerApp(
                             icon = { Icon(item.icon, null)},
                             selected = item == selectedItem.value,
                             onClick = {
-                                scope.launch {
-                                    drawerState.close()
-
-                                    // Show a snackbar with an optional action.
-                                    val snackbarResult = snackbarHostState.showSnackbar(
-                                        message = context.resources.getString(R.string.coming_soon, item.title),
-                                        actionLabel = context.resources.getString(R.string.subscribe_question),
-                                        withDismissAction = true,
-                                        duration = SnackbarDuration.Short
-                                    )
-
-                                    // Show a Toast if the user clicks the snackbar action.
-                                    if (snackbarResult == SnackbarResult.ActionPerformed) {
-                                        Toast.makeText(
-                                            context,
-                                            context.resources.getString(R.string.subscribed_info),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
+                                appState.onItemSelected(item)
                                 selectedItem.value = item // Update the selected item.
                             },
                             modifier = Modifier.padding(horizontal = 12.dp)
@@ -155,7 +123,7 @@ fun MyNavDrawerApp(
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        if (drawerState.isClosed) {
+                        if (appState.drawerState.isClosed) {
                             stringResource(R.string.swipe_to_open)
                         } else {
                             stringResource(R.string.swipe_to_close)
