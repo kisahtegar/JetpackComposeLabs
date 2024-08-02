@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,10 +19,14 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -29,12 +34,16 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.kisahcode.jetpackcomposelabs.data.HeroRepository
 import com.kisahcode.jetpackcomposelabs.model.HeroesData
 import com.kisahcode.jetpackcomposelabs.ui.theme.JetpackComposeLabsTheme
 import kotlinx.coroutines.launch
@@ -44,15 +53,22 @@ import kotlinx.coroutines.launch
  *
  * This function creates a box layout that contains a LazyColumn to display a list of heroes.
  * Each hero is represented by a [HeroListItem] composable that shows the hero's name and photo.
- * The list of heroes is provided by the [HeroesData] object. A "scroll to top" button is shown
- * when the user scrolls down the list.
+ * The list of heroes is provided by the [HeroesData] object, and it is grouped by the initial
+ * letter of each hero's name. A "scroll to top" button is shown when the user scrolls down the
+ * list. The list includes sticky headers for each group of heroes.
  *
  * @param modifier Modifier to be applied to the layout. Defaults to [Modifier].
+ * @param viewModel The ViewModel that provides the list of heroes. Defaults to an instance of
+ *                  [JetHeroesViewModel] created with a [ViewModelFactory] that uses [HeroRepository].
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun JetHeroesApp(
     modifier: Modifier = Modifier,
+    viewModel: JetHeroesViewModel = viewModel(factory = ViewModelFactory(HeroRepository()))
 ) {
+    val groupedHeroes by viewModel.groupedHeroes.collectAsState()
+
     Box(modifier = modifier) {
         val scope = rememberCoroutineScope()
         val listState = rememberLazyListState()
@@ -64,12 +80,17 @@ fun JetHeroesApp(
             state = listState,
             contentPadding = PaddingValues(bottom = 80.dp)
         ) {
-            items(HeroesData.heroes, key = { it.id }) { hero ->
-                HeroListItem(
-                    name = hero.name,
-                    photoUrl = hero.photoUrl,
-                    modifier = Modifier.fillMaxWidth()
-                )
+            groupedHeroes.forEach { (initial, heroes) ->
+                stickyHeader { 
+                    CharacterHeader(char = initial)
+                }
+                items(heroes, key = { it.id }) { hero ->
+                    HeroListItem(
+                        name = hero.name,
+                        photoUrl = hero.photoUrl,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
         }
 
@@ -153,6 +174,37 @@ fun ScrollToTopButton(
         Icon(
             imageVector = Icons.Filled.KeyboardArrowUp,
             contentDescription = stringResource(R.string.scroll_to_top),
+        )
+    }
+}
+
+/**
+ * Composable function that displays a character header.
+ *
+ * This function creates a [Surface] with a primary background color and displays a character
+ * in a centered [Text] composable. It is used to represent section headers in a list, such as
+ * the first letter of a group of items.
+ *
+ * @param char The character to be displayed in the header.
+ * @param modifier Modifier to be applied to the layout. Defaults to [Modifier].
+ */
+@Composable
+fun CharacterHeader(
+    char: Char,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        color = MaterialTheme.colorScheme.primary,
+        modifier = modifier
+    ) {
+        Text(
+            text = char.toString(),
+            fontWeight = FontWeight.Black,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
         )
     }
 }
