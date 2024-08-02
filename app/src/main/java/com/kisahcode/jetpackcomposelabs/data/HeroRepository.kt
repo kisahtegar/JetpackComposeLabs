@@ -19,4 +19,19 @@ class HeroRepository {
     fun getHeroes(): List<Hero> {
         return HeroesData.heroes
     }
+
+    /**
+     * Searches for heroes whose names match the given query.
+     *
+     * This function filters the list of heroes to only include those whose names contain the
+     * specified query string, ignoring case.
+     *
+     * @param query The search query string.
+     * @return A list of [Hero] objects that match the search query.
+     */
+    fun searchHeroes(query: String): List<Hero> {
+        return HeroesData.heroes.filter {
+            it.name.contains(query, ignoreCase = true)
+        }
+    }
 }

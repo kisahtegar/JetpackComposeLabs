@@ -1,6 +1,9 @@
-# Jetpack Compose Labs
+# JetHeroesApp
 
-This repository used for learning and testing:
+JetHeroesApp is a simple Jetpack Compose application that displays a list of Indonesian heroes. The 
+app features a search functionality to filter the heroes, sticky headers for grouping the heroes 
+alphabetically, and a scroll-to-top button for easy navigation. This project demonstrates various 
+Jetpack Compose components and state management using ViewModel and Kotlin coroutines.
 
 | Project Name                 | Jetpack Compose Labs           |
 |------------------------------|--------------------------------|
@@ -15,5 +18,6 @@ This repository used for learning and testing:
 This the output application after running the project:
 
 <p align="center">
-    <img src="previews/preview_1.png" alt="Preview 1" width="0" height="0">
+    <img src="previews/preview_1.png" alt="Preview 1" width="200" height="400">
+    <img src="previews/preview_2.png" alt="Preview 1" width="200" height="400">
 </p>
