@@ -17,6 +17,12 @@ This link contains a android jetpack compose for Layout:
 - [BasicLayoutTheory: Simple function that contains Card, Column, Row, etc.](https://github.com/kisahtegar/JetpackComposeLabs/tree/layout/BasicLayoutTheory)
 - [JetCoffee: Simple app that contains BottomBar, RowMenu, ColumnMenu, Header, etc.](https://github.com/kisahtegar/JetpackComposeLabs/tree/layout/JetCoffee)
 
+## 🖼️ Lazy Layout
+
+This link contains a android jetpack compose for Lazy Layout:
+
+- [JetHeroes: Demonstrates various Jetpack Compose components and state management using ViewModel and Kotlin coroutines.](https://github.com/kisahtegar/JetpackComposeLabs/tree/lazy-layout/JetHeroes)
+
 ## 🌍️ State
 
 This link contains a android jetpack compose for state:
