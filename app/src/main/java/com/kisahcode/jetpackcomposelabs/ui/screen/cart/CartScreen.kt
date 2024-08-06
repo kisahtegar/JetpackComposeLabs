@@ -40,13 +40,15 @@ import com.kisahcode.jetpackcomposelabs.ui.components.OrderButton
  * @param modifier Modifier to be applied to the layout. Defaults to [Modifier].
  * @param viewModel The [CartViewModel] used to manage the state of the cart screen. Defaults to a
  * view model provided by [ViewModelFactory] with a repository from [Injection.provideRepository].
+ * @param onOrderButtonClicked Callback function to handle the order button click event.
  */
 @Composable
 fun CartScreen(
     modifier: Modifier = Modifier,
     viewModel: CartViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository())
-    )
+    ),
+    onOrderButtonClicked: (String) -> Unit,
 ) {
     // Collect the UI state from the view model
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
@@ -62,6 +64,7 @@ fun CartScreen(
                         // Callback to update the count of a reward item
                         viewModel.updateOrderReward(rewardId, count)
                     },
+                    onOrderButtonClicked = onOrderButtonClicked
                 )
             }
             is UiState.Error -> {}
@@ -79,6 +82,7 @@ fun CartScreen(
  * @param state The current state of the cart, containing the list of ordered rewards and the total
  * required points.
  * @param onProductCountChanged Callback function to handle changes in the product count.
+ * @param onOrderButtonClicked Callback function to handle the order button click event.
  * @param modifier Modifier to be applied to the layout. Defaults to [Modifier].
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -86,6 +90,7 @@ fun CartScreen(
 fun CartContent(
     state: CartState,
     onProductCountChanged: (id: Long, count: Int) -> Unit,
+    onOrderButtonClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     // String resource for the share message
@@ -136,6 +141,7 @@ fun CartContent(
             text = stringResource(R.string.total_order, state.totalRequiredPoint),
             enabled = state.orderReward.isNotEmpty(),
             onClick = {
+                onOrderButtonClicked(shareMessage)
             },
             modifier = Modifier.padding(16.dp)
         )
