@@ -20,4 +20,11 @@ sealed class Screen(val route: String) {
      * The Profile screen.
      */
     data object Profile : Screen("profile")
+
+    /**
+     * The DetailReward screen.
+     */
+    data object DetailReward : Screen("home/{rewardId}") {
+        fun createRoute(rewardId: Long) = "home/$rewardId"
+    }
 }
