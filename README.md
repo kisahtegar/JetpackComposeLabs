@@ -29,3 +29,9 @@ This link contains a android jetpack compose for state:
 
 - [TemperatureConverter: Stateful Composable,Stateless Composable with State Hoisting, and Two Way Converter.](https://github.com/kisahtegar/JetpackComposeLabs/tree/state/TemperatureConverter)
 - [MyNavDrawerSideEffect: Drawer & Snackbar with state management and state holder.](https://github.com/kisahtegar/JetpackComposeLabs/tree/state/MyNavDrawerSideEffect)
+
+## 🧭 Navigation
+
+This link contains a android jetpack compose for navigation:
+
+- [JetReward: JetReward is a project used for learning and testing navigation in Jetpack Compose.](https://github.com/kisahtegar/JetpackComposeLabs/tree/navigation/JetReward)
