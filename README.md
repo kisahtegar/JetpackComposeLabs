@@ -35,3 +35,10 @@ This link contains a android jetpack compose for state:
 This link contains a android jetpack compose for navigation:
 
 - [JetReward: JetReward is a project used for learning and testing navigation in Jetpack Compose.](https://github.com/kisahtegar/JetpackComposeLabs/tree/navigation/JetReward)
+
+## 🧪 Testing
+
+This link contains a android jetpack compose for testing:
+
+- [MyComposeTesting: Simple application demonstrating the basics of UI testing.](https://github.com/kisahtegar/JetpackComposeLabs/tree/testing/MyComposeTesting)
+
