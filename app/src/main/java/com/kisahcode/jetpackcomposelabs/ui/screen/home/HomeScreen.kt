@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kisahcode.jetpackcomposelabs.R
@@ -72,14 +73,13 @@ fun HomeContent(
     orderReward: List<OrderReward>,
     modifier: Modifier = Modifier,
     navigateToDetail: (Long) -> Unit,
-
-    ) {
+) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(160.dp),
         contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = modifier
+        modifier = modifier.testTag("RewardList")
     ) {
         items(orderReward) { data ->
             RewardItem(

@@ -1,6 +1,10 @@
 # JetReward
 
-JetReward is a project used for learning and testing navigation in Jetpack Compose.
+JetReward is a learning project designed to explore and test navigation within Jetpack Compose. The 
+application simulates an e-commerce experience, allowing users to browse rewards, add items to their 
+cart, and proceed to checkout.
+
+## 📢 Project Information
 
 | Project Name                 | JetReward                      |
 |------------------------------|--------------------------------|
@@ -31,4 +35,5 @@ This the output testing after running the project:
 
 <p align="center">
     <img src="previews/preview_testing_1.png" alt="Preview 1" width="627" height="261">
+    <img src="previews/preview_testing_2.png" alt="Preview 1" width="627" height="287">
 </p>
