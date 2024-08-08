@@ -26,3 +26,9 @@ This the output application after running the project:
     <img src="previews/preview_3.png" alt="Preview 3" width="200" height="400">
     <img src="previews/preview_4.png" alt="Preview 4" width="200" height="400">
 </p>
+
+This the output testing after running the project:
+
+<p align="center">
+    <img src="previews/preview_testing_1.png" alt="Preview 1" width="627" height="261">
+</p>
